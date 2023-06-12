@@ -91,7 +91,7 @@ $activity_level = $_GET['activity-level'];
 
 
 
-    /*   
+    /* 
      $baglan = mysqli_connect('localhost', 'root', 'mysql', 'calculator');
     $insert_user_data_sql = "INSERT INTO users (user_id, daily_calorie_need, gender, weight, body_fat, activity_level VALUES ('$user_id', '$daily_calorie_need', '$gender', '$weight', '$body_fat', '$activity_level'";
     $save_user_data = mysqli_query($baglan, $insert_user_data_sql);
@@ -99,12 +99,12 @@ $activity_level = $_GET['activity-level'];
 
 
 
-    $save = $baglan->query("INSERT INTO users (user_id, daily_calorie_need, gender, weight, body_fat, activity_level VALUES ('$user_id', '$daily_calorie_need', '$gender', '$weight', '$body_fat', '$activity_level' ");
+    $save = $baglan->query("INSERT INTO users (daily_calorie_need, gender, weight, body_fat, activity_level VALUES ('$daily_calorie_need', '$gender', '$weight', '$body_fat', '$activity_level') WHERE user_id = '$user_id");
     ?>
 
 </head>
 <style>
- /*    body {
+    /*    body {
         background-image: url('images/ssscribble.svg');
         background-position: center;
         background-repeat: no-repeat;
@@ -125,13 +125,24 @@ $activity_level = $_GET['activity-level'];
     <div class="container-fluid">
         <div class="row shadow shadow-5-soft p-2 bg-primary">
             <div class="col-sm-3 d-flex justify-content-center align-items-center">
-                <a href="howtouse" class="text-white  underly">
-                    <i class="far fa fa-info-circle"></i>
-                    How To Use
-                </a>
+
+                <div>
+                    <a href="howtouse?user_id=<?= $user_id ?>" class="text-white  underly">
+                        <i class="far fa fa-info-circle"></i>
+                        How To Use
+                    </a>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div>
+                    <a href="help?user_id=<?= $user_id ?>" class="text-white  underly">
+                        <i class="far fa fa-question-circle"></i>
+                        Help/FAQ
+                    </a>
+                </div>
+
             </div>
             <div class="col-sm-6 text-center">
-                <a href="index" class="text-decoration-none text-white">
+                <a href="home?user_id=<?= $user_id ?>" class="text-decoration-none text-white">
                     <h4 class="text-white">
                         <i class="fas fa-utensils fa-1x"></i> <br>
                         Daily Calorie Calculator
@@ -140,25 +151,19 @@ $activity_level = $_GET['activity-level'];
             </div>
             <div class="col-sm-3 d-flex justify-content-center align-items-center">
                 <div>
-                    <a href="help" class="text-white  underly">
-                        <i class="far fa fa-question-circle"></i>
-                        Help/FAQ
-                    </a>
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div>
-                    <a href="foods-calories" class="text-white  underly">
+                    <a href="foods-calories?user_id=<?= $user_id ?>" class="text-white  underly">
                         <i class="fas fa-pizza-slice"></i>
                         Calorie Values
                     </a>
                 </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div>
+                    <a href="logout" class="text-white  underly">
+                        Log out
+                    </a>
+                </div>
             </div>
         </div>
-       <!--  <div class="row">
-            <div class="col-sm-6 offset-sm-3  rounded-bottom bg-dark text-white text-center p-2">
-                <span style="font-size:17px;"> User id: <strong><?php /* $user_id  */?></strong></span>
-            </div>
-        </div> -->
     </div>
 
     <div class="container">
@@ -193,7 +198,14 @@ $activity_level = $_GET['activity-level'];
             <div class="col-sm-6 offset-sm-3 ">
                 <div class="card shadow shadow-5-soft rounded-3 mt-2">
                     <div class="card-header bg-primary text-white">
-                        <h5>Add Consumption</h5>
+                        <?php
+                        $user_id = $_GET['user_id'];
+                        $kullanici = $baglan->query("SELECT * FROM users WHERE user_id = '$user_id'");
+                        $kullanici_data = $kullanici->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($kullanici_data as $row) {
+                        ?>
+                            <h5>Add Consumption, <strong><?= $row['firstname'] . " "    . $row['lastname'] ?></strong></h5>
+                        <? } ?>
                     </div>
                     <div class="card-body">
                         <form action="" method="POST">
