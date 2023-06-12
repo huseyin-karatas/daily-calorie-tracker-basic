@@ -13,7 +13,9 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-
+    <?php
+    $user_id = $_GET['user_id'];
+    ?>
 </head>
 <style>
     .underly {
@@ -27,15 +29,26 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row shadow shadow-5-soft p-2 bg-primary ">
+        <div class="row shadow shadow-5-soft p-2 bg-primary">
             <div class="col-sm-3 d-flex justify-content-center align-items-center">
-                <a href="howtouse" class="text-white  underly">
-                    <i class="far fa fa-info-circle"></i>
-                    How To Use
-                </a>
+
+                <div>
+                    <a href="howtouse?user_id=<?= $user_id ?>" class="text-white  underly">
+                        <i class="far fa fa-info-circle"></i>
+                        How To Use
+                    </a>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div>
+                    <a href="help?user_id=<?= $user_id ?>" class="text-white  underly">
+                        <i class="far fa fa-question-circle"></i>
+                        Help/FAQ
+                    </a>
+                </div>
+
             </div>
             <div class="col-sm-6 text-center">
-                <a href="index" class="text-decoration-none text-white">
+                <a href="home?user_id=<?= $user_id ?>" class="text-decoration-none text-white">
                     <h4 class="text-white">
                         <i class="fas fa-utensils fa-1x"></i> <br>
                         Daily Calorie Calculator
@@ -44,16 +57,15 @@
             </div>
             <div class="col-sm-3 d-flex justify-content-center align-items-center">
                 <div>
-                    <a href="help" class="text-white  underly">
-                        <i class="far fa fa-question-circle"></i>
-                        Help/FAQ
+                    <a href="foods-calories?user_id=<?= $user_id ?>" class="text-white  underly">
+                        <i class="fas fa-pizza-slice"></i>
+                        Calorie Values
                     </a>
                 </div>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div>
-                    <a href="foods-calories" class="text-white  underly">
-                        <i class="fas fa-pizza-slice"></i>
-                        Calorie Values
+                    <a href="logout" class="text-white  underly">
+                        Log out
                     </a>
                 </div>
             </div>
